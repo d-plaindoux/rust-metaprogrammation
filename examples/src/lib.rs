@@ -1,3 +1,4 @@
+
 #[cfg(test)]
 mod code_with_declarative {
     use declarative::foreach;
@@ -45,6 +46,7 @@ mod code_with_procedural {
     }
 
     #[test]
+    #[allow(unused_variables)]
     pub fn should_perform_option_foreach_with_filter() {
         let r = foreach! {
             a <- Some(2)
