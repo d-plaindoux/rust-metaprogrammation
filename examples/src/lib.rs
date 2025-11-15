@@ -9,7 +9,7 @@ mod code_with_declarative {
             b <- (1..=a) if b != 2
             yield (a, b)
         }
-            .collect();
+        .collect();
 
         assert_eq!(r, vec![(1, 1), (2, 1), (3, 1), (3, 3)]);
     }
@@ -46,7 +46,7 @@ mod code_with_procedural {
 
     #[test]
     pub fn should_perform_option_foreach_with_filter() {
-        let r: Option<i32> = foreach! {
+        let r = foreach! {
             a <- Some(2)
             b <- Some(a) if a != 2
             c <- Some(3)
