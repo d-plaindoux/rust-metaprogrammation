@@ -40,14 +40,12 @@
         <section>
             <h4> Self-Promotion </h4>
 
-            <p class="fragment"><a href="https://github.com/d-plaindoux/apacen">Apacen</a> an Open Source
-                Declarative Type Dependent System Prover in Prolog (Strategy, Proof Tree, Holes etc.).
+            <p class="fragment"><a href="https://github.com/d-plaindoux/apacen-lang">Apacen</a> <br>
+                An Open Source naive constraint<br> Prolog written in Kotlin
             </p>
-            <p class="fragment"><a href="https://www.immofix.com">Immofix Simuréno</a> an Expert System
-                Dedicated to Real-Estate Matchmaking and Negotiation, Integrating Sustainability Criteria.
-            </p>
-            <p class="fragment"><a href="https://www.kaptngo.com">Kaptngo</a> a Secure Distributed System
-                for Decentralized Executions with Streamlined Communications.
+
+            <p class="fragment"><a href="https://github.com/d-plaindoux/celma">Celma</a> <br> an Open Source
+                generalized <br> parser combinator written in Rust
             </p>
         </section>
 
@@ -108,8 +106,8 @@
             <ul>
                 <li class="fragment"> Syntactic construction following the form of the mathematical set-builder notation
                     <br/>
-                    <pre><code class="fragment language-scala" data-noescape>  P = { (x,y) | x ∈ [1,3], y ∈ [1,x], y ≠ 2 }
-  // P = { (1, 1), (2, 1), (3, 1), (3, 3) } </code></pre>
+                    <pre><code class="fragment language-scala" data-noescape>  { (a,b) | a ∈ [1,3], b ∈ [1,a], b ≠ 2 } </code></pre>
+                    <pre><code class="fragment language-scala" data-noescape>  { (1, 1), (2, 1), (3, 1), (3, 3) } </code></pre>
                 </li>
                 <li class="fragment"> List comprehension generalisation (P. Wadler)
                     <br>
@@ -121,6 +119,8 @@
         <section>
             <h4> Scala For Comprehension Example </h4>
 
+            <code class="language-scala" style="font-size: x-large" data-noescape> &nbsp;  </code>
+
             <pre><code class="language-scala" data-noescape>
 
 
@@ -130,6 +130,8 @@
 
         <section>
             <h4> Scala For Comprehension Example </h4>
+
+            <code class="language-scala" style="font-size: x-large" data-noescape>  { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } </code>
 
             <pre><code class="language-scala" data-noescape>
   for
@@ -141,6 +143,8 @@
         <section>
             <h4> Scala For Comprehension Example </h4>
 
+            <code class="language-scala" style="font-size: x-large" data-noescape>  { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | a ∈ [1,3] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  } </code>
+
             <pre><code class="language-scala" data-noescape>
   for a <- 1 to 3
 
@@ -150,6 +154,20 @@
 
         <section>
             <h4> Scala For Comprehension Example </h4>
+
+            <code class="language-scala" style="font-size: x-large" data-noescape>  { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | a ∈ [1,3], b ∈ [1,a] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } </code>
+
+            <pre><code class="language-scala" data-noescape>
+  for a <- 1 to 3
+      b <- 1 to a
+
+            </code></pre>
+        </section>
+
+        <section>
+            <h4> Scala For Comprehension Example </h4>
+
+            <code class="language-scala" style="font-size: x-large" data-noescape>  { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | a ∈ [1,3], b ∈ [1,a], b ≠ 2 } </code>
 
             <pre><code class="language-scala" data-noescape>
   for a <- 1 to 3
@@ -160,6 +178,8 @@
 
         <section>
             <h4> Scala For Comprehension Example </h4>
+
+            <code class="language-scala" style="font-size: x-large" data-noescape>  { (a,b) | a ∈ [1,3], b ∈ [1,a], b ≠ 2 } </code>
 
             <pre><code class="language-scala" data-noescape>
   for a <- 1 to 3
@@ -1115,7 +1135,7 @@ pub enum Comprehension {
   impl syn::parse::Parse for Comprehension {
 
     //
-    fn parse(input: ParseStream) -> syn::Result&lt;Self> {
+    fn parse(input: TokenStream) -> syn::Result&lt;Self> {
 
 
 
@@ -1133,7 +1153,7 @@ pub enum Comprehension {
   impl syn::parse::Parse for Comprehension {
 
     // ident ...
-    fn parse(input: ParseStream) -> syn::Result&lt;Self> {
+    fn parse(input: TokenStream) -> syn::Result&lt;Self> {
       let ident = input.parse::&lt;syn::Ident>()?;
 
 
@@ -1151,7 +1171,7 @@ pub enum Comprehension {
   impl syn::parse::Parse for Comprehension {
 
     // ident "<-" ...
-    fn parse(input: ParseStream) -> syn::Result&lt;Self> {
+    fn parse(input: TokenStream) -> syn::Result&lt;Self> {
       let ident = input.parse::&lt;syn::Ident>()?;
       let _ = input.parse::&lt;syn::Token![<-]>()?;
 
@@ -1169,7 +1189,7 @@ pub enum Comprehension {
   impl syn::parse::Parse for Comprehension {
 
     // ident "<-" expr ...
-    fn parse(input: ParseStream) -> syn::Result&lt;Self> {
+    fn parse(input: TokenStream) -> syn::Result&lt;Self> {
       let ident = input.parse::&lt;syn::Ident>()?;
       let _ = input.parse::&lt;syn::Token![<-]>()?;
       let value = input.parse::&lt;syn::Expr>()?;
@@ -1186,7 +1206,7 @@ pub enum Comprehension {
   impl syn::parse::Parse for Comprehension {
 
     // ident "<-" expr ("if" ...)? ...
-    fn parse(input: ParseStream) -> syn::Result&lt;Self> {
+    fn parse(input: TokenStream<) -> syn::Result&lt;Self> {
       let ident = input.parse::&lt;syn::Ident>()?;
       let _ = input.parse::&lt;syn::Token![<-]>()?;
       let value = input.parse::&lt;syn::Expr>()?;
